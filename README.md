@@ -9,16 +9,16 @@ reads a server's logs to detect these attacks and produces a prioritised inciden
 report with evidence and potential fixes.
 
 
-## Features
+## features
 
-- **Two detection engines**
-  - **Signature-based**: 14 regex rules in an editable JSON rule pack (like Snort/Sigma rules)
-  - **Behavioural**: sliding-window detectors for brute force, bot floods, alt accounts and chat spam (like fail2ban)
-- **Parses Vanilla, Spigot, Paper and Forge** log formats, including rotated `.log.gz` files and whole `logs/` folders
-- **Reports in text, JSON (for SIEM ingestion) or HTML**
-- **CI/cron friendly exit codes**: `0` clean, `1` error, `2` threats found
-- **Safe on hostile input**: logs contain attacker-controlled text, so the HTML report escapes everything (no XSS), terminal output neutralises ANSI escape injection, and malformed bytes never crash the parser
-- **No dependencies**: standard library only
+- There are two attack detection engines
+  - One is signature based. There are 14 regex rules in an editable JSON rule pack
+  - One is behavioural based. There are sliding window detectors for brute force, bot floods, alt accounts and chat spam
+- It parses different minecraft log formats including Vanilla, Spigot, Paper and Forge, also rotated `.log.gz` files and whole `logs/` folders
+- Reports outcomes in text, JSON or HTML
+- exit codes: `0` clean, `1` error, `2` threats found
+- Safe on hostile inputs. logs contain attacker controlled text, so the HTML report escapes everything (no XSS), terminal output neutralises ANSI escape injection, and malformed bytes do not crash the parser
+- No dependencies
 
 ## What it detects
 
@@ -31,7 +31,7 @@ report with evidence and potential fixes.
 
 Findings are linked to CVE and MITRE ATT&CK references where relevant.
 
-## Installation
+## How to install
 
 ```bash
 git clone https://github.com/Kra06/minecraft-server-log-scanner.git
@@ -40,31 +40,31 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-## Usage
+## How to use
 
 ```bash
-mclogscan samples/attack-2026-09-20.log               # coloured text report
-mclogscan /path/to/server/logs/                       # scan every log in a folder
-mclogscan logs/ -f html -o report.html                # HTML report
-mclogscan logs/ -f json -o report.json                # JSON for other tools / SIEM
-mclogscan logs/ --min-severity medium                 # hide low/info findings
-mclogscan logs/ --fail-on critical                    # exit 2 only for critical findings
-mclogscan logs/ --rules my-rules.json                 # use a custom rule pack
-python -m mclogscan ...                               # works without installing
+mclogscan samples/attack-2026-09-20.log               #produce coloured text report
+mclogscan /path/to/server/logs/                       #scan every log in a folder
+mclogscan logs/ -f html -o report.html                #produce HTML report
+mclogscan logs/ -f json -o report.json                #produce JSON for other tools / SIEM
+mclogscan logs/ --min-severity medium                 #hide low/info findings
+mclogscan logs/ --fail-on critical                    #exit 2 only for critical findings
+mclogscan logs/ --rules my-rules.json                 #use a custom rule pack
+python -m mclogscan ...                               #how to use without installing
 ```
 
 ## How it works
 
-1. **Read**: `parser.py` reads each log line and picks out the time, player, IP address and what happened.
-2. **Detect**: two engines check the lines.
-   - `signatures.py` matches each line against known attack patterns stored in `rules/signatures.json`.
-   - `detectors.py` looks for suspicious behaviour across many lines, such as repeated failed logins.
-3. **Combine**: `scanner.py` merges the results, ranks them by severity and gives each player a risk score.
-4. **Report**: `report.py` writes the report as text, JSON or HTML. `cli.py` is the command you run.
+1. `parser.py` reads each log line and picks out the time, player, IP address and what happened
+2. DETECT: two engines check the lines
+  `signatures.py` matches each line against known attack patterns in `rules/signatures.json`.
+  `detectors.py` looks for suspicious behaviour across multiple lines eg repeated failed logins
+3. `scanner.py` merges the results, ranks them by severity and gives each player a risk score
+4. `report.py` writes the report as text, JSON or HTML. `cli.py` is the command run.
 
-## Writing your own rules
+## How to write custom rules
 
-Add an object to `rules/signatures.json` (or your own file passed with `--rules`):
+Add an object to `rules/signatures.json` or your own file passed with `--rules`
 
 ```json
 {
@@ -85,7 +85,7 @@ Add an object to `rules/signatures.json` (or your own file passed with `--rules`
 - `event` (optional): only match `join`, `leave`, `chat`, `command`, `disconnect`, `other` or `raw` lines
 - `fields`: which part of the entry to search: `message` (whole message), `content` (chat/command text only), `raw` (full line) or `player`
 
-Rule files are validated on load, so a bad regex, unknown severity or duplicate ID gives a clear error instead of silently not detecting anything.
+Rule files are validated on load, so a bad regex, unknown severity or duplicate ID gives a clear error instead of not detecting anything and not notifying the user
 
 ## Testing
 
@@ -93,10 +93,13 @@ Rule files are validated on load, so a bad regex, unknown severity or duplicate 
 pytest -v
 ```
 
-85 tests cover the parser (all formats, gzip, invalid bytes, rollover), **a true-positive and false-positive test for every rule**, the behavioural thresholds, XSS and escape-injection resistance of the reports, and CLI exit codes. A test fails if any rule is added without a matching positive test.
+85 tests cover the parser
+there is a 'true positive' test for every rule, 'false positive' tests on harmless lines, the behavioural thresholds, XSS and escape injection resistance of the reports, and exit codes. A test fails if any rule is added without a matching positive test.
 
-## Limitations and future work
+## Limitations and future additions
 
-- Signature detection only catches known patterns; novel attacks need new rules.
-- Vanilla logs don't record the IP on every line, so some findings are attributed to a player only.
-- Ideas: live monitoring (`tail -f` mode), GeoIP lookups on offending IPs, Discord webhook alerts, exporting rules to Sigma format, detecting suspicious plugin jars.
+- Signature detection only catches known patterns meaning new attacks need new rules
+- Vanilla logs don't record the IP on every line so some findings are attributed to a player only.
+- Would be more useful with live monitoring so you can be notified of attackers in real time on the server
+- GeoIP lookups on offending IPs
+- detecting suspicious plugin jars so that installed files can be scanned for malware and not only logs are scanned for attacks
