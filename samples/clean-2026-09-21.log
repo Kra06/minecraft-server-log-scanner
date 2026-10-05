@@ -1,0 +1,20 @@
+[10:00:01] [Server thread/INFO]: Starting minecraft server version 1.20.4
+[10:00:06] [Server thread/INFO]: Done (4.871s)! For help, type "help"
+[10:05:12] [User Authenticator #1/INFO]: UUID of player Steve is 8667ba71-b85a-4004-af54-457a9734eed7
+[10:05:12] [Server thread/INFO]: Steve[/82.132.45.10:50122] logged in with entity id 12 at ([world]12.5, 64.0, -30.2)
+[10:05:12] [Server thread/INFO]: Steve joined the game
+[10:05:20] [Async Chat Thread - #0/INFO]: <Steve> morning!
+[10:06:01] [User Authenticator #1/INFO]: UUID of player Alex is ec561538-f3fd-461d-aff5-086b22154bce
+[10:06:01] [Server thread/INFO]: Alex[/86.14.201.77:61002] logged in with entity id 15 at ([world]0.5, 70.0, 0.5)
+[10:06:01] [Server thread/INFO]: Alex joined the game
+[10:06:09] [Async Chat Thread - #0/INFO]: <Alex> hey Steve, the op said we can use /home now
+[10:06:15] [Server thread/INFO]: Alex issued server command: /home
+[10:06:30] [Server thread/INFO]: Steve issued server command: /tpa Alex
+[10:07:02] [Async Chat Thread - #0/INFO]: <Steve> my ping is ${ping} lol
+[10:07:30] [Server thread/INFO]: Steve issued server command: /msg Alex check the discord for the event
+[10:30:00] [Server thread/INFO]: Alex lost connection: Disconnected
+[10:30:00] [Server thread/INFO]: Alex left the game
+[23:59:58] [Async Chat Thread - #0/INFO]: <Steve> almost midnight
+[00:00:03] [Async Chat Thread - #0/INFO]: <Steve> happy new day
+[00:01:00] [Server thread/INFO]: Steve lost connection: Disconnected
+[00:01:00] [Server thread/INFO]: Steve left the game

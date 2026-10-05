@@ -1,0 +1,162 @@
+[
+  {
+    "id": "MC-L4S-001",
+    "name": "Log4Shell JNDI injection attempt",
+    "severity": "critical",
+    "category": "Remote Code Execution",
+    "description": "A ${jndi:...} lookup string was written to the log. On servers running a vulnerable Log4j version (Minecraft 1.7-1.18.0) this makes the server fetch and execute attacker-controlled code.",
+    "pattern": "\\$\\{\\s*jndi\\s*:",
+    "fields": ["message"],
+    "references": ["CVE-2021-44228", "https://www.minecraft.net/en-us/article/important-message--security-vulnerability-java-edition"],
+    "recommendation": "Update to Minecraft 1.18.1+ (or apply Mojang's Log4j patch), ban the player/IP, and check outbound connections from the server around this time."
+  },
+  {
+    "id": "MC-L4S-002",
+    "name": "Obfuscated Log4Shell payload",
+    "severity": "critical",
+    "category": "Remote Code Execution",
+    "description": "Nested Log4j lookups such as ${${lower:j}ndi:...} or ${${::-j}${::-n}di:...} are used to evade simple 'jndi' filters.",
+    "pattern": "\\$\\{\\s*(?:\\$\\{|lower:|upper:|::-|env:|sys:|date:)",
+    "fields": ["message"],
+    "references": ["CVE-2021-44228", "CVE-2021-45046"],
+    "recommendation": "Treat as a deliberate exploitation attempt: update Log4j, ban the source and review the server for compromise."
+  },
+  {
+    "id": "MC-PRIV-001",
+    "name": "Operator / wildcard permission grant",
+    "severity": "high",
+    "category": "Privilege Escalation",
+    "description": "A player ran a command that grants operator status or all permissions. If the player should not have this power, their account or a plugin may be compromised.",
+    "pattern": "^/(?:minecraft:)?op\\s|^/(?:lp|luckperms)\\s+(?:user|group)\\s+\\S+\\s+permission\\s+set\\s+\\*|^/pex\\s+user\\s+\\S+\\s+add\\s+\\*",
+    "event": "command",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1078 Valid Accounts", "MITRE ATT&CK T1098 Account Manipulation"],
+    "recommendation": "Confirm the grant was authorised. Check ops.json and your permissions plugin, and rotate the account's password if unsure."
+  },
+  {
+    "id": "MC-ADMIN-001",
+    "name": "Sensitive administrative command",
+    "severity": "medium",
+    "category": "Defense Evasion",
+    "description": "A player ran a command that weakens server protection (disabling the whitelist, unbanning, stopping the server, or changing gamerules that hide activity).",
+    "pattern": "^/(?:minecraft:)?(?:whitelist\\s+off|pardon(?:-ip)?\\s|stop\\b|deop\\s|gamerule\\s+(?:sendCommandFeedback|logAdminCommands|commandBlockOutput)\\s+false)",
+    "event": "command",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1562 Impair Defenses"],
+    "recommendation": "Verify the player is a trusted admin and that the action was intended."
+  },
+  {
+    "id": "MC-GRIEF-001",
+    "name": "Mass destruction command",
+    "severity": "medium",
+    "category": "Impact",
+    "description": "Commands that kill every entity/player or clear inventories are commonly used by griefers who have gained operator access.",
+    "pattern": "^/(?:minecraft:)?(?:kill|clear)\\s+@[ae]\\b|^//(?:set|replace)\\s+\\S*(?:tnt|lava)",
+    "event": "command",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1485 Data Destruction"],
+    "recommendation": "Check who gave this player permission and restore from backup if damage was done."
+  },
+  {
+    "id": "MC-CRASH-001",
+    "name": "WorldEdit expression crash exploit",
+    "severity": "high",
+    "category": "Denial of Service",
+    "description": "WorldEdit's //calc and //eval evaluate expressions; crafted expressions with huge loops have been used to freeze or crash servers.",
+    "pattern": "^//(?:calc|calculate|eval|evaluate|solve)\\b",
+    "event": "command",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1499 Endpoint Denial of Service"],
+    "recommendation": "Deny the worldedit.calc permission to untrusted players and keep WorldEdit/FAWE updated."
+  },
+  {
+    "id": "MC-CRASH-002",
+    "name": "Malformed / oversized packet",
+    "severity": "high",
+    "category": "Denial of Service",
+    "description": "Errors such as oversized payloads, badly compressed packets or Netty decoder exceptions are typical of crash clients sending malicious packets.",
+    "pattern": "Payload may not be larger than|Badly compressed packet|DecoderException|Packet too big|Book too large|exceeds the maximum allowed",
+    "fields": ["message"],
+    "references": ["MITRE ATT&CK T1499 Endpoint Denial of Service"],
+    "recommendation": "Identify the IP that sent the packet, block it, and consider an anti-exploit plugin or proxy."
+  },
+  {
+    "id": "MC-CMDI-001",
+    "name": "Shell command injection attempt",
+    "severity": "high",
+    "category": "Command Injection",
+    "description": "Chat or command text contains shell syntax (pipes to a shell, command chaining, download-and-execute). Plugins that pass player input to the OS shell can be exploited this way.",
+    "pattern": "(?:;|&&|\\|\\|?)\\s*(?:sh|bash|cmd|powershell|curl|wget|nc|rm)\\b|\\$\\((?:curl|wget|sh|bash|id|whoami)|`(?:id|whoami|uname)`|bash\\s+-c\\s|/bin/(?:ba)?sh\\b",
+    "fields": ["content"],
+    "references": ["CWE-78 OS Command Injection", "MITRE ATT&CK T1059 Command and Scripting Interpreter"],
+    "recommendation": "Audit plugins that run system commands, never pass player input to a shell, and ban the source."
+  },
+  {
+    "id": "MC-BACKDOOR-001",
+    "name": "Possible backdoor plugin trigger",
+    "severity": "high",
+    "category": "Persistence",
+    "description": "Backdoored ('leaked' or cracked) plugins often listen for secret chat triggers such as '#op', '.console' or '!sudo' that give the sender operator or console access.",
+    "pattern": "^\\s*(?:[#.!]{1,2})(?:op|forceop|console|sudo|backdoor|opme|deopall|getop)\\b",
+    "event": "chat",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1505 Server Software Component"],
+    "recommendation": "Check whether the player gained permissions straight after this message. Remove plugins not downloaded from official sources and scan jars with a tool such as MCAntiMalware."
+  },
+  {
+    "id": "MC-PHISH-001",
+    "name": "IP logger / phishing link",
+    "severity": "medium",
+    "category": "Phishing",
+    "description": "Chat contains a link to a known IP-grabbing service or a URL shortener used to disguise malicious links.",
+    "pattern": "(?:grabify\\.link|iplogger\\.(?:org|com|ru)|2no\\.co|yip\\.su|blasze\\.tk|ps3cfw\\.com|bit\\.ly|tinyurl\\.com|cutt\\.ly|is\\.gd)/",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1566 Phishing"],
+    "recommendation": "Delete the message if possible, warn players not to click it, and mute or ban the sender."
+  },
+  {
+    "id": "MC-RECON-001",
+    "name": "Server reconnaissance command",
+    "severity": "low",
+    "category": "Discovery",
+    "description": "Listing plugins or the server version shows an attacker which vulnerable software is installed. Harmless on its own, but often the first step of an attack.",
+    "pattern": "^/(?:bukkit:)?(?:pl|plugins|ver|version|about|icanhasbukkit)\\b",
+    "event": "command",
+    "fields": ["content"],
+    "references": ["MITRE ATT&CK T1518 Software Discovery"],
+    "recommendation": "Hide these commands from non-staff (e.g. revoke bukkit.command.plugins / bukkit.command.version)."
+  },
+  {
+    "id": "MC-HACK-001",
+    "name": "Movement cheat detected by server",
+    "severity": "low",
+    "category": "Cheating",
+    "description": "The server rejected impossible movement (flying, speed or teleport hacks), which indicates a modified client.",
+    "pattern": "moved too quickly!|moved wrongly!|was kicked for floating too long|Flying is not enabled on this server",
+    "fields": ["message"],
+    "references": [],
+    "recommendation": "Monitor the player and consider an anti-cheat plugin."
+  },
+  {
+    "id": "MC-AUTH-001",
+    "name": "Session verification failure",
+    "severity": "medium",
+    "category": "Credential Access",
+    "description": "A client failed Mojang session verification. This can be a network glitch, but repeated failures suggest a cracked client or an attempt to impersonate another player's username.",
+    "pattern": "Failed to verify username",
+    "fields": ["message"],
+    "references": ["MITRE ATT&CK T1078 Valid Accounts"],
+    "recommendation": "Keep online-mode=true (or configure your proxy's forwarding secret correctly) and watch for repeats from the same IP."
+  },
+  {
+    "id": "MC-INJ-001",
+    "name": "Log / terminal escape injection",
+    "severity": "medium",
+    "category": "Log Tampering",
+    "description": "Raw ANSI escape sequences in the log can hide or rewrite lines when an admin views the log in a terminal, covering an attacker's tracks.",
+    "pattern": "\\x1b\\[|\\\\u001b\\[|\\\\x1b\\[",
+    "fields": ["message"],
+    "references": ["CWE-117 Improper Output Neutralization for Logs"],
+    "recommendation": "Filter control characters from chat and view logs with a tool that escapes them."
+  }
+]
