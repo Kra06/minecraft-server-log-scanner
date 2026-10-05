@@ -1,4 +1,4 @@
-# mclogscan: Minecraft Server Log Security Scanner
+# Minecraft server logs security scanner
 
 [![tests](https://github.com/Kra06/minecraft-server-log-scanner/actions/workflows/tests.yml/badge.svg)](https://github.com/Kra06/minecraft-server-log-scanner/actions/workflows/tests.yml)
 ![python](https://img.shields.io/badge/python-3.9%2B-blue)
