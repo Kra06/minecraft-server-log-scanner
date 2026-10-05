@@ -1,8 +1,5 @@
 # Minecraft server logs security scanner
 
-[![tests](https://github.com/Kra06/minecraft-server-log-scanner/actions/workflows/tests.yml/badge.svg)](https://github.com/Kra06/minecraft-server-log-scanner/actions/workflows/tests.yml)
-![python](https://img.shields.io/badge/python-3.9%2B-blue)
-![dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 
 This tool is for Minecraft servers, and detects intruders or malicious actors based off logs on public servers. This was created because public servers let anyone connect, which makes them a common target for common exploits including Log4Shell, bot floods, brute force logins, backdoored plugins and crash exploits. The tool
 reads a server's logs to detect these attacks and produces a prioritised incident
@@ -81,9 +78,9 @@ Add an object to `rules/signatures.json` or your own file passed with `--rules`
 }
 ```
 
-- `pattern`: a case-insensitive Python regex
-- `event` (optional): only match `join`, `leave`, `chat`, `command`, `disconnect`, `other` or `raw` lines
-- `fields`: which part of the entry to search: `message` (whole message), `content` (chat/command text only), `raw` (full line) or `player`
+- `pattern` is a case insensitive python regex
+- `event` which is optional only matches `join`, `leave`, `chat`, `command`, `disconnect`, `other` or `raw` lines
+- `fields` are which part of the entry to search: `message` for the whole message, `content` for chat or command text only, `raw` for the full line or `player`
 
 Rule files are validated on load, so a bad regex, unknown severity or duplicate ID gives a clear error instead of not detecting anything and not notifying the user
 
